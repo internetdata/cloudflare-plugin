@@ -7,9 +7,9 @@ The official [InternetData](https://internetdata.io) Worker for Cloudflare passe
 
 Cloudflare already tells your site where a visitor is. This Worker adds who is behind the address, from InternetData's data: the company and the type of network it belongs to, and whether it's a VPN, proxy, Tor or hosting address, which Cloudflare keeps for its Enterprise plan. It works in front of any site behind Cloudflare, whatever runs it.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/internetdata/cloudflare-plugin)
-
 ## Getting Started
+
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/internetdata/cloudflare-plugin)
 
 1. Create an API key in the [InternetData console](https://app.internetdata.io). An account is free, and so is the plan it starts on.
 2. Click **Deploy to Cloudflare** above. Cloudflare copies this repository into your GitHub or GitLab account, asks for the Worker's settings and your API key, and deploys the Worker.
