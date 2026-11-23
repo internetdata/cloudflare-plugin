@@ -100,7 +100,10 @@ async function worker(vars = {}, options = {}) {
         modules: true,
         scriptPath: new URL('../dist/index.js', import.meta.url).pathname,
         compatibilityDate: compatibilityDate,
-        bindings: { INTERNETDATA_API_KEY: KEY, BLOCK: 'vpn,tor', ACTION: 'block', ...vars },
+        // A setting given as undefined is left out, as the Deploy button leaves every one but the key.
+        bindings: Object.fromEntries(Object.entries({
+            INTERNETDATA_API_KEY: KEY, BLOCK: 'vpn,tor', ACTION: 'block', ...vars,
+        }).filter(([, value]) => value !== undefined)),
         outboundService: outbound,
         ...options,
     }));
@@ -211,6 +214,19 @@ describe('out of the box', () => {
         assert.equal(rec.matched, false);
         assert.equal(rec.result.location.country, 'NL');
         assert.equal(rec.result.company.name, PAID.company.name);
+    });
+
+    test('with the API key its only binding, every visitor reaches the site with their data', async () => {
+        stub = freshStub();
+        const mf = await worker({ BLOCK: undefined, ACTION: undefined });
+        for (const ip of [VPN, CLEAN]) {
+            const { response, origin } = await visit(mf, ip);
+            assert.equal(response.status, 200);
+            const rec = forwarded(origin);
+            assert.equal(rec.matched, false);
+            assert.equal(rec.error, undefined);
+            assert.equal(rec.ip, ip);
+        }
     });
 });
 
