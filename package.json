@@ -1,6 +1,6 @@
 {
     "name": "internetdata-cloudflare",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Forward each visitor's IP data to your site from Cloudflare's edge, on any plan, and block or challenge by country, network and privacy signals with the InternetData API.",
     "private": true,
     "type": "module",
