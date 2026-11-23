@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.2 - 2026-11-23
+
+### Fixes
+
+- Fix the Updating steps for a copy the Deploy button made ([`603b3f9`](https://github.com/internetdata/cloudflare-plugin/commit/603b3f98d64702cd9ce4e0bba0efd5ab1a380f3f))
+
 ## 1.0.1 - 2026-11-23
 
 ### Fixes
