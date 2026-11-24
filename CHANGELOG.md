@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.3 - 2026-11-24
+
+### Fixes
+
+- Bundle @internetdata/internetdata 2.17.0 and wrangler 4.163.0 ([`89358ea`](https://github.com/internetdata/cloudflare-plugin/commit/89358ea3c31c322ac3f9f03af0ecfb6854badd3b))
+
 ## 1.0.2 - 2026-11-23
 
 ### Fixes
