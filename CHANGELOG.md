@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.0 - 2026-11-25
+
+### Features
+
+- Refuse forged crawlers with the spoofed signal ([`719b3bd`](https://github.com/internetdata/cloudflare-plugin/commit/719b3bd8b7f954a26db4b8ae584e34eb4bb38895))
+
 ## 1.0.3 - 2026-11-24
 
 ### Fixes
