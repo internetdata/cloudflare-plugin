@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.1 - 2026-11-26
+
+### Fixes
+
+- Send only a crawler's User-Agent, at most four per address ([`65253f5`](https://github.com/internetdata/cloudflare-plugin/commit/65253f5015690037c45dfcf50bd696e6fd03ecbc))
+
 ## 1.1.0 - 2026-11-25
 
 ### Features
