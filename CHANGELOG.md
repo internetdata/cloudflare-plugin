@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.2 - 2026-11-27
+
+### Fixes
+
+- Read the free plan's answer as the API now serves it ([`18e4395`](https://github.com/internetdata/cloudflare-plugin/commit/18e4395cc6ab7a21af7397a3837b453f143eac36))
+
 ## 1.1.1 - 2026-11-26
 
 ### Fixes
