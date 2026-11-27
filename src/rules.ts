@@ -26,7 +26,6 @@ export interface Claim {
 
 // Read off the answer as served: the SDK names a member only once it is re-pinned to a spec that has it.
 const botAnswer = z.object({
-    is_bot: z.optional(z.boolean()),
     bot: z.nullish(z.object({ verified: z.optional(z.boolean()) })),
 });
 
@@ -47,7 +46,6 @@ export function judge(
             : { matched: false, signals: [] };
     }
     const bot = botAnswer.safeParse(result.raw);
-    const isBot = bot.success && bot.data.is_bot === true;
     const vouched = bot.success && bot.data.bot?.verified === true;
     const signals: string[] = [];
     for (const signal of settings.block) {
@@ -57,7 +55,7 @@ export function judge(
             }
             continue;
         }
-        const term = termFor(signal, result, isBot, settings.proxyMinHits);
+        const term = termFor(signal, result, settings.proxyMinHits);
         if (term === null) {
             continue;
         }
@@ -71,9 +69,7 @@ export function judge(
             signals.push(signal);
         }
     }
-    // A free answer says nothing of who runs a bot, so an address a known bot uses is spared there.
-    const freeAnswer = bot.success && (bot.data.bot === undefined || bot.data.bot === null);
-    if (inCountries(result, settings) && !(isBot && freeAnswer)) {
+    if (inCountries(result, settings)) {
         signals.push('country');
     }
     const verified = vouched || result.userAgent?.verdict === 'verified';
@@ -106,12 +102,11 @@ function spoofed(
 
 /**
  * One signal's condition for this answer, or null where it cannot apply. A free answer has no
- * `is_hosting`, so hosting is read off the type of the network the address belongs to there, sparing
- * an address a bot is known to use, since only a paid answer says whether its operator vouches for
- * it. A relay is judged as a relay alone: iCloud Private Relay and company gateways run on hosting
- * networks.
+ * `is_hosting`, so hosting is read off the type of the network the address belongs to there, and with
+ * no bot in it nothing tells a crawler apart. A relay is judged as a relay alone: iCloud Private Relay
+ * and company gateways run on hosting networks.
  */
-function termFor(signal: Signal, result: Result, isBot: boolean, minHits: number): BlockCondition | null {
+function termFor(signal: Signal, result: Result, minHits: number): BlockCondition | null {
     switch (signal) {
     case 'vpn':
         return { isVpn: true };
@@ -134,7 +129,7 @@ function termFor(signal: Signal, result: Result, isBot: boolean, minHits: number
             return null;
         }
         if (result.isHosting === undefined && result.asn !== undefined) {
-            return isBot ? null : { asn: { type: 'hosting' } };
+            return { asn: { type: 'hosting' } };
         }
         return { isHosting: true };
     case 'spoofed':

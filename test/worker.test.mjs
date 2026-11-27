@@ -45,7 +45,6 @@ const ANSWERS = {
     '81.2.69.160': { ...NEUTRAL, ip: '81.2.69.160', location: { ...PAID.location, country: 'GB' } },
     '81.2.69.161': { ...NEUTRAL, ip: '81.2.69.161', location: { ...PAID.location, country: '' } },
     '45.33.32.156': FREE,
-    '34.82.1.1': { ...FREE, ip: '34.82.1.1', is_bot: true },
 };
 // Googlebot's network, vouched for, from an address the stub's agent check does not bear Googlebot out on.
 ANSWERS['66.249.66.2'] = { ...ANSWERS[CRAWLER], ip: '66.249.66.2' };
@@ -271,7 +270,6 @@ describe('countries', () => {
         const paid = await worker({ BLOCK: '', BLOCK_COUNTRIES: 'NL' });
         assert.equal(forwarded((await visit(paid, CRAWLER)).origin).exempt, 'verified-bot');
         const free = await worker({ BLOCK: '', ALLOW_COUNTRIES: 'GB' });
-        assert.equal((await visit(free, '34.82.1.1')).response.status, 200);
         assert.equal((await visit(free, '45.33.32.156')).response.status, 403);
     });
 
@@ -311,11 +309,10 @@ describe('signals', () => {
         assert.equal((await visit(relay, RELAY)).response.status, 403);
     });
 
-    test('on a free answer, hosting is the network type, sparing a known bot', async () => {
+    test('on a free answer, hosting is the network type', async () => {
         stub = freshStub();
         const mf = await worker({ BLOCK: 'hosting' });
         assert.equal((await visit(mf, '45.33.32.156')).response.status, 403);
-        assert.equal((await visit(mf, '34.82.1.1')).response.status, 200);
     });
 
     test('a refusal names what was found, and asks to turn off only what a visitor can', async () => {
