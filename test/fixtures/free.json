@@ -22,7 +22,6 @@
     "asn": 63949,
     "name": "Akamai Connected Cloud",
     "domain": "linode.com",
-    "type": "hosting",
     "prefix": "45.33.32.0/19",
     "country": "SG",
     "rpki_status": "valid"

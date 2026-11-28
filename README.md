@@ -63,7 +63,7 @@ Your API key is the secret `INTERNETDATA_API_KEY`. The deploy asks for it, and y
 | --- | --- | --- |
 | `tor` | Tor exit and relay nodes | Every plan |
 | `relay` | iCloud Private Relay and company web gateways, mostly ordinary people | Every plan |
-| `hosting` | Servers at hosting and cloud providers, where bots and scripts run | Every plan, judged by the network an address belongs to on the free plan |
+| `hosting` | Servers at hosting and cloud providers, where bots and scripts run | A paid plan |
 | `smtp` | Addresses that run a mail server, which home and mobile connections can't | A paid plan |
 | `vpn` | Commercial and self-hosted VPN servers | A paid plan |
 | `pubproxy` | Open proxies anyone can connect through | A paid plan |
@@ -74,9 +74,9 @@ Your API key is the secret `INTERNETDATA_API_KEY`. The deploy asks for it, and y
 
 A visitor from a country `BLOCK_COUNTRIES` names, or one `ALLOW_COUNTRIES` leaves out, matches `country`, on every plan. A visitor whose country isn't known matches neither list.
 
-A free account also tries every signal for a while; after that, a signal the [free plan](https://internetdata.io/pricing) doesn't answer never matches, and the Worker logs that once. A privacy relay is judged as a relay alone, even where it runs on a hosting network.
+A free key's full answers cover every signal. Any other answer from the [free plan](https://internetdata.io/pricing) lacks the signals the table lists under a paid plan, so those never match, and the Worker logs that once. A privacy relay is judged as a relay alone, even where it runs on a hosting network.
 
-**Search engines' crawlers are never refused.** On a paid plan, an address whose bot operator vouches for it, such as Googlebot's, passes whatever it matched. The free plan's answer doesn't say which addresses bots use, so there `hosting` and the country lists can refuse a crawler too.
+**Search engines' crawlers are never refused.** On a paid plan, an address whose bot operator vouches for it, such as Googlebot's, passes whatever it matched. The free plan's answer doesn't say which addresses bots use, so there the country lists can refuse a crawler too.
 
 **`spoofed` catches a forged crawler**, a scraper that calls itself Googlebot to get past rules that let crawlers in. It's off unless `BLOCK` names it. While it's on, a lookup also sends the visitor's `User-Agent` when it names a crawler, never a browser's. An address is looked up with at most four crawler agents an hour, or while its answers are cached when `CACHE_TTL` is longer, and a crawler it claims past those is judged spoofed if one before it was.
 

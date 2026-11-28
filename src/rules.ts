@@ -82,8 +82,8 @@ export function judge(
     return { matched: signals.length > 0, signals: signals };
 }
 
-// Whether the crawler claimed is one this address does not bear out. A verdict comes with a paid plan or
-// the trial; a bogon is answered locally, with none. A vouched-for address never inherits an earlier one.
+// Whether the crawler claimed is one this address does not bear out. A verdict comes with a paid plan or a
+// free key's full answers, never a bogon's; a vouched-for address never inherits an earlier claim's.
 function spoofed(
     result: Result, claim: Claim | undefined, vouched: boolean, warn: (message: string) => void,
 ): boolean {
@@ -101,10 +101,10 @@ function spoofed(
 }
 
 /**
- * One signal's condition for this answer, or null where it cannot apply. A free answer has no
- * `is_hosting`, so hosting is read off the type of the network the address belongs to there, and with
- * no bot in it nothing tells a crawler apart. A relay is judged as a relay alone: iCloud Private Relay
- * and company gateways run on hosting networks.
+ * One signal's condition for this answer, or null where it cannot apply. Hosting is `is_hosting` alone,
+ * which a paid plan or a free key's full answers carry: an answer without it has no network type to stand
+ * in. A relay is judged as a relay alone: iCloud Private Relay and company gateways run on hosting
+ * networks.
  */
 function termFor(signal: Signal, result: Result, minHits: number): BlockCondition | null {
     switch (signal) {
@@ -127,9 +127,6 @@ function termFor(signal: Signal, result: Result, minHits: number): BlockConditio
     case 'hosting':
         if (result.isRelay === true) {
             return null;
-        }
-        if (result.isHosting === undefined && result.asn !== undefined) {
-            return { asn: { type: 'hosting' } };
         }
         return { isHosting: true };
     case 'spoofed':
