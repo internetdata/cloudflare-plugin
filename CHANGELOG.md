@@ -2,6 +2,14 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.3 - 2026-11-28
+
+### Fixes
+
+- Bundle @internetdata/internetdata 2.20.0 ([`9ad31ef`](https://github.com/internetdata/cloudflare-plugin/commit/9ad31ef21d89d6a52fa906012f58c0c59a52518a))
+- Name crawlers by the SDK's terms and keep an address's agents an hour ([`6a512fd`](https://github.com/internetdata/cloudflare-plugin/commit/6a512fdbf45c181691beab3651dc39f7ea4b955d))
+- Check hosting on a paid plan or a free key's full answers ([`11cf200`](https://github.com/internetdata/cloudflare-plugin/commit/11cf20022e86996810e1768eb5cc391ef818f434))
+
 ## 1.1.2 - 2026-11-27
 
 ### Fixes
