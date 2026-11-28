@@ -26,7 +26,7 @@
         }
     },
     "dependencies": {
-        "@internetdata/internetdata": "^2.19.0",
+        "@internetdata/internetdata": "^2.20.0",
         "ip-address": "^10.7.6",
         "zod": "^4.6.7"
     },
